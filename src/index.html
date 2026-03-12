@@ -2,31 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JS Homework 10</title>
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <header class="header">
-      <div class="container">
-        <nav class="nav">
-          <ul class="nav-list">
-            <li class="nav-item">
-              <a class="nav-link {=$highlight-act}" href="./1-timer.html">Page 2</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {=$highlight-curr}" href="./2-snackbar.html">Page 3</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main>
+    <div class="container">
+      <form class="form">
+        <label>
+          <input type="text" name="search-text" placeholder="Search images..." required>
+        </label>
+        <button type="submit">Search</button>
+      </form>
       
-    </main>
+      <div class="container-modal">
+        <ul class="gallery">
+        </ul>
+        <div class="modal">
+          <span class="loader"></span>
+        </div>
+      </div>
+    </div>
 
 
-    <script type="module" src="./main.js"></script>
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/pixabay-api.js"></script>
   </body>
 </html>

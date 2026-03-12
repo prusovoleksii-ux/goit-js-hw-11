@@ -1,0 +1,54 @@
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+const modal = document.querySelector('div.modal')
+const gallery = document.querySelector('ul.gallery');
+let lightbox = new SimpleLightbox('.gallery a', {captionsData: "alt"});
+
+function showLoader() {
+    modal.classList.add("active");
+}
+function hideLoader() {
+    modal.classList.remove("active");
+}
+
+export const createGallery = images => {
+    showLoader();
+    let markup = images.map(img => `<li class="gallery-item">
+                                        <a class="gallery-link" href="${img.largeImageURL}">
+                                            <img
+                                                class="gallery-image"
+                                                src="${img.webformatURL}"
+                                                alt="${img.tags}"
+                                            />
+                                            <ul class="info-container">
+                                                <li>
+                                                    <p class="info-header">Likes</p>
+                                                    <p class="info">${img.likes}</p>
+                                                </li>
+                                                <li>
+                                                    <p class="info-header">Views</p>
+                                                    <p class="info">${img.views}</p>
+                                                </li>
+                                                <li>
+                                                    <p class="info-header">Comments</p>
+                                                    <p class="info">${img.comments}</p>
+                                                </li>
+                                                <li>
+                                                    <p class="info-header">Downloads</p>
+                                                    <p class="info">${img.downloads}</p>
+                                                </li>
+                                            </ul> 
+                                        </a>
+                                    </li>`)
+                        .join("");
+    gallery.innerHTML = markup;
+    lightbox.refresh();
+    hideLoader();
+}
+
+function clearGallery() {
+    lightbox.destroy();
+}
+
+
