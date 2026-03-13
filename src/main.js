@@ -19,6 +19,7 @@ text.addEventListener("input", e => {
 
 form.addEventListener("submit", e => {
     e.preventDefault();
+    showLoader();
     clearGallery();
     getImagesByQuery(text.value)
         .then(res => {
@@ -28,9 +29,7 @@ form.addEventListener("submit", e => {
                     message: 'Sorry, there are no images matching your search query. Please try again!',
                 });
             } else {
-                showLoader();
                 createGallery(res.hits);
-                hideLoader();
             }
         })
         .catch(err => {
@@ -39,4 +38,5 @@ form.addEventListener("submit", e => {
                 message: 'An error occurred while trying to fetch images',
             });
         });
+    hideLoader();
 });
