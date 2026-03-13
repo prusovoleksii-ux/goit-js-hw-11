@@ -11,5 +11,5 @@ export const getImagesByQuery = query => {
          orientation: "horizontal",
          safesearch: true
       }
-   });
+   }).then(res => res.data);
 };

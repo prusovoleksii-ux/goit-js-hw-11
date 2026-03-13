@@ -1,19 +1,18 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-const modal = document.querySelector('div.modal')
+const modal = document.querySelector('div.modal');
 const gallery = document.querySelector('ul.gallery');
-let lightbox = new SimpleLightbox('.gallery a', {captionsData: "alt"});
 
-function showLoader() {
+
+export const showLoader = () => {
     modal.classList.add("active");
 }
-function hideLoader() {
+export const hideLoader = () => {
     modal.classList.remove("active");
 }
 
 export const createGallery = images => {
-    showLoader();
     let markup = images.map(img => `<li class="gallery-item">
                                         <a class="gallery-link" href="${img.largeImageURL}">
                                             <img
@@ -42,13 +41,13 @@ export const createGallery = images => {
                                         </a>
                                     </li>`)
                         .join("");
+    let lightbox = new SimpleLightbox('.gallery a', {captionsData: "alt"});
     gallery.innerHTML = markup;
     lightbox.refresh();
-    hideLoader();
 }
 
-function clearGallery() {
-    lightbox.destroy();
+export const clearGallery = (lightbox) => {
+    gallery.innerHTML = '';
 }
 
 
