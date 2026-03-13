@@ -18,27 +18,29 @@ text.addEventListener("input", e => {
 });
 
 form.addEventListener("submit", e => {
-    e.preventDefault();
-    showLoader();
-    clearGallery();
-    getImagesByQuery(text.value)
-        .then(res => {
-            console.log(res.hits);
-            if (res.hits.length === 0){
+    if (text.value.trim() !== '') {
+        e.preventDefault();
+        showLoader();
+        clearGallery();
+        getImagesByQuery(text.value)
+            .then(res => {
+                console.log(res.hits);
+                if (res.hits.length === 0){
+                    iziToast.error({
+                        message: 'Sorry, there are no images matching your search query. Please try again!',
+                    });
+                } else {
+                    createGallery(res.hits);
+                }
+            })
+            .catch(err => {
+                console.error(err)
                 iziToast.error({
-                    message: 'Sorry, there are no images matching your search query. Please try again!',
+                    message: 'An error occurred while trying to fetch images',
                 });
-            } else {
-                createGallery(res.hits);
-            }
-        })
-        .catch(err => {
-            console.error(err)
-            iziToast.error({
-                message: 'An error occurred while trying to fetch images',
+            })
+            .finally(() => {
+                hideLoader();
             });
-        })
-        .finally(() => {
-            hideLoader();
-        });
+    }
 });
