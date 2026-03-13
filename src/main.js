@@ -31,12 +31,13 @@ form.addEventListener("submit", e => {
             } else {
                 createGallery(res.hits);
             }
+            hideLoader();
         })
         .catch(err => {
+            hideLoader();
             console.error(err)
             iziToast.error({
                 message: 'An error occurred while trying to fetch images',
             });
         });
-    hideLoader();
 });
