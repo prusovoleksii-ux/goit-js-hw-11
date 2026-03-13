@@ -10,37 +10,32 @@ import "izitoast/dist/css/iziToast.min.css";
 const form = document.querySelector('.form');
 const text = document.querySelector('.form input');
 const submit = document.querySelector('button[type="submit"]');
-submit.disabled = true;
 
-text.addEventListener("input", e => {
-    if (e.currentTarget.value.trim() !== "") submit.disabled = false;
-    else submit.disabled = true;
-});
 
 form.addEventListener("submit", e => {
-    if (text.value.trim() !== '') {
-        e.preventDefault();
-        showLoader();
-        clearGallery();
-        getImagesByQuery(text.value)
-            .then(res => {
-                console.log(res.hits);
-                if (res.hits.length === 0){
-                    iziToast.error({
-                        message: 'Sorry, there are no images matching your search query. Please try again!',
-                    });
-                } else {
-                    createGallery(res.hits);
-                }
-            })
-            .catch(err => {
-                console.error(err)
+    e.preventDefault();
+    const query = text.value.trim();
+    if (query === "") return;
+    showLoader();
+    clearGallery();
+    getImagesByQuery(query)
+        .then(res => {
+            console.log(res.hits);
+            if (res.hits.length === 0){
                 iziToast.error({
-                    message: 'An error occurred while trying to fetch images',
+                    message: 'Sorry, there are no images matching your search query. Please try again!',
                 });
-            })
-            .finally(() => {
-                hideLoader();
+            } else {
+                createGallery(res.hits);
+            }
+        })
+        .catch(err => {
+            console.error(err)
+            iziToast.error({
+                message: 'An error occurred while trying to fetch images',
             });
-    }
+        })
+        .finally(() => {
+            hideLoader();
+        });
 });
